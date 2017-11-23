@@ -6,20 +6,26 @@ COPY .bashrc /root/.bashrc
 RUN export TERM=xterm
 
 RUN apt-get update && \
-    apt-get dist-upgrade -y && \
-    apt-get install -y \
+    apt-get dist-upgrade -y
+
+RUN apt-get install -y \
     software-properties-common \
-    php \
+    imagemagick \
     rsync \
     openssh-client \
-    php-cli \
     curl \
-    libicu-dev \
+    libicu-dev
+
+RUN apt-get install -y \
+    php \
+    php-cli \
+    php-imagick \
     php-intl \
     php-curl \
     php-gd \
     php-zip \
     php-json \
+    php-mcrypt \
     php-mbstring \
     composer
 
