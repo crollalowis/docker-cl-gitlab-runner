@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-MAINTAINER Richard Hoffmann "r.hoffmann@crolla-lowis.de"
+LABEL maintainer="r.hoffmann@crolla-lowis.de"
 
 COPY .bashrc /root/.bashrc
 RUN export TERM=xterm
