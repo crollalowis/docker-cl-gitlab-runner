@@ -15,9 +15,10 @@ RUN apt-get update && \
     rsync \
     openssh-client \
     php-cli \
+    curl \
     libicu-dev \
-    libcurl \
     php-intl \
+    php-curl \
     php-gd \
     php-json \
     php-mbstring \
