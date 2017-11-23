@@ -5,16 +5,18 @@ MAINTAINER Richard Hoffmann "r.hoffmann@crolla-lowis.de"
 COPY .bashrc /root/.bashrc
 RUN export TERM=xterm
 
+# curl \
+
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
     apt-get install -y \
     software-properties-common \
-    curl \
     php \
     rsync \
     openssh-client \
     php-cli \
     libicu-dev \
+    libcurl \
     php-intl \
     php-gd \
     php-json \
