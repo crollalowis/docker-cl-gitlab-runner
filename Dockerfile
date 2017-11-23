@@ -40,7 +40,9 @@ RUN node -v
 # RUN export NVM_DIR="$HOME/.nvm" && . $NVM_DIR/nvm.sh
 # RUN nvm use latest
 
-RUN npm install -g yarn gulp grunt
+# preinstall annoying stuff
+RUN npm install -g yarn gulp grunt node-sass 
+
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
