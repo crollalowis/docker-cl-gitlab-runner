@@ -20,6 +20,7 @@ RUN apt-get update && \
     php-intl \
     php-curl \
     php-gd \
+    php-zip \
     php-json \
     php-mbstring \
     composer
