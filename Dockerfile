@@ -2,10 +2,10 @@ FROM ubuntu:latest
 
 MAINTAINER Richard Hoffmann "r.hoffmann@crolla-lowis.de"
 
-RUN apt-get -y install software-properties-common
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
     apt-get install -y \
+    software-properties-common \
     nodejs \
     php \
     rsync \
@@ -28,3 +28,5 @@ RUN npm install -g nvm yarn grunt gulp
 # RUN mv /usr/bin/composer.phar /usr/bin/composer
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# TODO: maybe change user or owner to be able to install global stuff
