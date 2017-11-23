@@ -26,7 +26,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 
 COPY .bashrc /root/.bashrc
-RUN source /root/.bashrc
+# RUN source /root/.bashrc
 
 RUN node -v
 # RUN npm install -g nvm yarn grunt gulp
