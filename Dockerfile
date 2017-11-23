@@ -36,6 +36,12 @@ RUN apt-get install -y nodejs
 
 RUN node -v
 
+# RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+# RUN export NVM_DIR="$HOME/.nvm" && . $NVM_DIR/nvm.sh
+# RUN nvm use latest
+
+RUN npm install -g yarn gulp grunt
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 CMD ["bash"]
