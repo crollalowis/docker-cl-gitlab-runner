@@ -2,6 +2,9 @@ FROM ubuntu:latest
 
 MAINTAINER Richard Hoffmann "r.hoffmann@crolla-lowis.de"
 
+COPY .bashrc /root/.bashrc
+RUN export TERM=xterm
+
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
     apt-get install -y \
@@ -12,20 +15,15 @@ RUN apt-get update && \
     openssh-client \
     php-cli \
     libicu-dev \
-    php-apcu \
     php-intl \
     php-gd \
     php-json \
     php-mbstring \
-    php-xml \
-    php-xsl \
-    php-zip \
     composer
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 
-COPY .bashrc /root/.bashrc
 # RUN source /root/.bashrc
 
 RUN node -v
