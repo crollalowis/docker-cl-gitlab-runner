@@ -34,15 +34,19 @@ RUN apt-get install -y build-essential
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 
-RUN node -v
+RUN node -v && npm -v
+
 
 # RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
 # RUN export NVM_DIR="$HOME/.nvm" && . $NVM_DIR/nvm.sh
 # RUN nvm use latest
 
-# preinstall annoying stuff
-RUN npm install -g yarn gulp grunt node-sass 
+USER root
 
+# preinstall annoying stuff
+RUN npm install --unsafe --unsafe-perms -g yarn gulp grunt node-sass
+RUN npm cache clean --force
+# node-sass 
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
