@@ -21,7 +21,6 @@ RUN apt-get install -y \
 # add sources
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
-
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN apt-get update && \
@@ -42,20 +41,17 @@ RUN apt-get install -y ftp yarn nodejs
 
 USER root
 
-# install n node version manager
-# RUN curl -L https://git.io/n-install | bash
-# RUN . ~/.bashrc
-
-RUN echo "node: $(node -v), npm: $(npm -v), yarn: $(yarn -v)"
+# RUN echo "node: $(node -v), npm: $(npm -v), yarn: $(yarn -v)"
 
 # preinstall annoying npm stuff
 RUN npm install --unsafe --unsafe-perms -g n
-RUN n latest
+RUN for ver in 4 5 6 7 8 latest; do n $ver; done
+RUN npm install --unsafe --unsafe-perms -g grunt gulp node-sass webpack
 
 RUN echo "node: $(node -v), npm: $(npm -v), yarn: $(yarn -v)"
 
-# RUN npm cache clean --force
-
+# cleanup
+RUN npm cache clean --force
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 CMD ["bash"]
