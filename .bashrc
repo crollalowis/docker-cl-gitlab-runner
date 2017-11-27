@@ -1,5 +1,6 @@
 export TERM=xterm
-# export PATH=$PATH
+# export PATH="$PATH:/opt/yarn-[version]/bin"
+
 alias node="nodejs"
 
 # export NVM_DIR="$HOME/.nvm"
