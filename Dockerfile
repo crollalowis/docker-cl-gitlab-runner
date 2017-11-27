@@ -31,6 +31,8 @@ RUN apt-get install -y \
 
 RUN apt-get install -y build-essential
 
+RUN apt-get install -y ftp
+
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 
@@ -43,7 +45,7 @@ RUN node -v && npm -v
 USER root
 
 # preinstall annoying stuff
-RUN npm install --unsafe --unsafe-perms -g yarn gulp grunt node-sass gulp-sass@2.2.0 gulp-sass
+RUN npm install --unsafe --unsafe-perms -g yarn gulp grunt node-sass
 RUN npm cache clean --force
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
