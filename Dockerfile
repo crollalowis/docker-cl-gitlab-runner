@@ -14,7 +14,9 @@ RUN apt-get install -y \
     rsync \
     openssh-client \
     curl \
-    libicu-dev
+    libicu-dev \
+    build-essential \
+    libssl-dev 
 
 # add sources
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -36,15 +38,23 @@ RUN apt-get update && \
     php-mbstring \
     composer
 
-RUN apt-get install -y build-essential ftp nodejs yarn
-
-RUN echo "node: $(node -v), npm: $(npm -v), yarn: $(yarn -v)"
+RUN apt-get install -y ftp yarn nodejs
 
 USER root
 
+# install n node version manager
+# RUN curl -L https://git.io/n-install | bash
+# RUN . ~/.bashrc
+
+RUN echo "node: $(node -v), npm: $(npm -v), yarn: $(yarn -v)"
+
 # preinstall annoying npm stuff
-RUN npm install --unsafe --unsafe-perms -g gulp grunt node-sass
-RUN npm cache clean --force
+RUN npm install --unsafe --unsafe-perms -g n
+RUN n latest
+
+RUN echo "node: $(node -v), npm: $(npm -v), yarn: $(yarn -v)"
+
+# RUN npm cache clean --force
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
