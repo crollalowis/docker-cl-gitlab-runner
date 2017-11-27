@@ -36,7 +36,7 @@ RUN apt-get update && \
     php-mbstring \
     composer
 
-RUN apt-get install -y build-essential ftp nodejs
+RUN apt-get install -y build-essential ftp nodejs yarn
 
 RUN echo "node: $(node -v), npm: $(npm -v), yarn: $(yarn -v)"
 
