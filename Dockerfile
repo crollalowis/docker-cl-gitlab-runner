@@ -16,7 +16,8 @@ RUN apt-get install -y \
     curl \
     libicu-dev \
     build-essential \
-    libssl-dev 
+    libssl-dev \
+    ftp-upload
 
 # add sources
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
