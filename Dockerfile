@@ -34,6 +34,7 @@ RUN apt-get update && \
     php-gd \
     php-zip \
     php-json \
+    php-xml \
     php-mcrypt \
     php-mbstring \
     composer
