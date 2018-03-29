@@ -5,8 +5,10 @@ LABEL maintainer="r.hoffmann@crolla-lowis.de"
 COPY .bashrc /root/.bashrc
 RUN export TERM=xterm
 
-RUN apt-get update && \
+RUN add-apt-repository -y ppa:ondrej/php && \
+    apt-get update && \
     apt-get dist-upgrade -y
+    
 
 RUN apt-get install -y \
     software-properties-common \
@@ -26,17 +28,17 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 
 RUN apt-get update && \
     apt-get install -y \
-    php \
-    php-cli \
-    php-imagick \
-    php-intl \
-    php-curl \
-    php-gd \
-    php-zip \
-    php-json \
-    php-xml \
-    php-mcrypt \
-    php-mbstring \
+    php7.1 \
+    php7.1-cli \
+    php7.1-imagick \
+    php7.1-intl \
+    php7.1-curl \
+    php7.1-gd \
+    php7.1-zip \
+    php7.1-json \
+    php7.1-xml \
+    php7.1-mcrypt \
+    php7.1-mbstring \
     composer
 
 RUN apt-get install -y ftp yarn nodejs
@@ -47,7 +49,7 @@ USER root
 
 # preinstall annoying npm stuff
 RUN npm install --unsafe --unsafe-perms -g n
-RUN for ver in 4 5 6 7 8 latest; do n $ver; done
+RUN for ver in 4 5 6 7 8 9 latest; do n $ver; done
 RUN npm install --unsafe --unsafe-perms -g grunt gulp node-sass webpack
 
 RUN echo "node: $(node -v), npm: $(npm -v), yarn: $(yarn -v)"
