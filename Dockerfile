@@ -47,14 +47,9 @@ RUN apt-get update && \
     php7.3-json \
     php7.3-xml \
     php7.3-intl \
-    # php7.3-pecl \
     # php7.3-mcrypt \
     php7.3-mbstring \
     composer
-
-# RUN bash -c "echo extension=/usr/lib/php/20170718/mcrypt.so > /etc/php/7.2/cli/conf.d/mcrypt.ini"
-# RUN bash -c "echo extension=/usr/lib/php/20170718/mcrypt.so > /etc/php/7.2/apache2/conf.d/mcrypt.ini"
-# RUN bash -c "echo extension=mcrypt.so > /etc/php/7.2/php.ini"
 
 RUN apt-get install -y ftp yarn nodejs
 
