@@ -60,16 +60,12 @@ RUN apt-get install -y ftp yarn nodejs
 
 USER root
 
-# preinstall annoying npm stuff
-# RUN npm install --unsafe --unsafe-perms -g n
-# RUN for ver in 4 5 6 7 8 9 10 11 latest; do n $ver; done
-RUN npm install --unsafe --unsafe-perms -g node-sass
-# RUN npm i -g node-sass
-
-RUN echo "node: $(node -v), npm: $(npm -v), yarn: $(yarn -v)"
+# preinstall heavy npm stuff
+RUN npm install --unsafe --unsafe-perms -g node-sass phantomjs-prebuilt
+RUN echo "node: $(node -v), npm: $(npm -v), yarn: $(yarn -v), php: $(php -v)"
 
 # cleanup
-RUN npm cache clean --force
+# RUN npm cache clean --force
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 CMD ["bash"]
