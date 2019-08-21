@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM debian:stable
 
 LABEL maintainer="r.hoffmann@crolla-lowis.de"
 
@@ -10,11 +10,11 @@ RUN echo "Europe/Berlin" > /etc/timezone
 
 RUN apt-get clean && \
     apt-get update && \
-    apt-get dist-upgrade -y
+    apt-get upgrade -y
 
 RUN apt-get install -y \
     software-properties-common \
-    language-pack-en-base \
+    # language-pack-en-base \
     imagemagick \
     rsync \
     openssh-client \
@@ -30,7 +30,7 @@ RUN apt-get install -y \
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
+# RUN LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
 
 RUN apt-get update && \
     apt-get install -y \
@@ -49,14 +49,15 @@ RUN apt-get update && \
     php7.3-intl \
     # php7.3-mcrypt \
     php7.3-mbstring \
-    composer
-
-RUN apt-get install -y ftp yarn nodejs
+    composer \
+    ftp \
+    yarn \
+    nodejs
 
 USER root
 
 # preinstall heavy npm stuff
-RUN npm install --unsafe --unsafe-perms -g node-sass phantomjs-prebuilt
+RUN npm install --unsafe --unsafe-perms -g node-sass
 RUN echo "node: $(node -v), npm: $(npm -v), yarn: $(yarn -v), php: $(php -v)"
 
 # cleanup
