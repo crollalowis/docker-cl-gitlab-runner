@@ -1,5 +1,4 @@
 FROM debian:stretch
-# FROM debian:jessie
 
 LABEL maintainer="r.hoffmann@crolla-lowis.de"
 
@@ -25,7 +24,7 @@ RUN apt-get install -y \
 # add sources
 RUN curl https://packages.sury.org/php/apt.gpg | apt-key add -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 
@@ -52,7 +51,7 @@ USER root
 
 # preinstall annoying npm stuff
 RUN npm install --unsafe --unsafe-perms -g n
-RUN for ver in 4 5 6 7 8 latest; do n $ver; done
+RUN for ver in 4 5 6 7 8 9 10 11 latest; do n $ver; done
 RUN npm install --unsafe --unsafe-perms -g grunt gulp node-sass webpack
 
 RUN echo "php: $(php -v), node: $(node -v), npm: $(npm -v), yarn: $(yarn -v)"
