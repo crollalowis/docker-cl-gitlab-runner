@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:stretch
 
 USER root
 
@@ -16,21 +16,24 @@ RUN echo "Europe/Berlin" > /etc/timezone
 
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y \
-    software-properties-common \
-    # language-pack-en-base \
-    imagemagick \
-    rsync \
-    openssh-client \
-    curl \
-    wget \
-    libmcrypt-dev \
-    libreadline-dev \
-    libicu-dev \
-    build-essential \
-    libssl-dev \
-    zip \
-    ftp \
-    ftp-upload
+  ca-certificates \
+  apt-transport-https \
+  lsb-release \
+  software-properties-common \
+  # language-pack-en-base \
+  imagemagick \
+  rsync \
+  openssh-client \
+  curl \
+  wget \
+  libmcrypt-dev \
+  libreadline-dev \
+  libicu-dev \
+  build-essential \
+  libssl-dev \
+  zip \
+  ftp \
+  ftp-upload
 
 RUN \
   wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
@@ -65,31 +68,35 @@ RUN apt-get update && \
 
 # instll latest nodejs
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
 RUN apt-get update && \
-    apt-get install -y \
-    nodejs
+  apt-get install -y \
+  nodejs
 
 # install php shit
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php7.3.list
+
+RUN apt-cache search php7.3
 
 RUN apt-get update && \
-    apt-get install -y \
-    php7.3 \
-    php7.3-cli \
-    php7.3-imagick \
-    php7.3-intl \
-    php7.3-apcu \
-    php7.3-mysql \
-    php7.3-pdo-mysql \
-    php7.3-curl \
-    php7.3-gd \
-    php7.3-zip \
-    php7.3-json \
-    php7.3-xml \
-    php7.3-intl \
-    # php7.3-mcrypt \
-    php7.3-mbstring \
-    composer
+  apt-get install -y \
+  php7.3 \
+  php7.3-cli \
+  php7.3-imagick \
+  php7.3-intl \
+  php7.3-apcu \
+  php7.3-mysql \
+  php7.3-pdo-mysql \
+  php7.3-curl \
+  php7.3-gd \
+  php7.3-zip \
+  php7.3-json \
+  php7.3-xml \
+  php7.3-intl \
+  # php7.3-mcrypt \
+  php7.3-mbstring \
+  composer
 
 # avoid million NPM install messages
 ENV npm_config_loglevel warn
