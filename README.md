@@ -2,9 +2,22 @@
 
 ## Changelog
 
+### 19.08.2020 -
+
+#### `crollalowis/cl-gitlab-runner:php74-node14`
+ node version:    v14.8.0
+ php version:     PHP 7.4.9 (cli) (built: Aug  7 2020 14:56:37) ( NTS )
+ npm version:     6.14.8
+ git version:     git version 2.11.0
+ yarn version:    1.22.4
+ chrome version:  Google Chrome 84.0.4147.125
+ firefox version: Mozilla Firefox 79.0
+ debian version:  9.13
+ user:            root
+
 ### 25.02.2020
 
-### `crollalowis/cl-gitlab-runner:php73-node13`
+#### `crollalowis/cl-gitlab-runner:php73-node13`
 - Using `debian:stretch` as base image
 - Updated to Node 13
 
