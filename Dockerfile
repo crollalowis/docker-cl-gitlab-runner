@@ -2,7 +2,7 @@ FROM debian:stretch
 
 USER root
 
-ARG FIREFOX_VERSION=68.0.2
+ARG FIREFOX_VERSION=79.0
 
 LABEL maintainer="r.hoffmann@crolla-lowis.de"
 
@@ -68,34 +68,34 @@ RUN apt-get update && \
 
 # instll latest nodejs
 
-RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get update && \
   apt-get install -y \
   nodejs
 
 # install php shit
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php7.3.list
+RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php7.4.list
 
-RUN apt-cache search php7.3
+RUN apt-cache search php7.4
 
 RUN apt-get update && \
   apt-get install -y \
-  php7.3 \
-  php7.3-cli \
-  php7.3-imagick \
-  php7.3-intl \
-  php7.3-apcu \
-  php7.3-mysql \
-  php7.3-pdo-mysql \
-  php7.3-curl \
-  php7.3-gd \
-  php7.3-zip \
-  php7.3-json \
-  php7.3-xml \
-  php7.3-intl \
-  # php7.3-mcrypt \
-  php7.3-mbstring \
+  php7.4 \
+  php7.4-cli \
+  php7.4-imagick \
+  php7.4-intl \
+  php7.4-apcu \
+  php7.4-mysql \
+  php7.4-pdo-mysql \
+  php7.4-curl \
+  php7.4-gd \
+  php7.4-zip \
+  php7.4-json \
+  php7.4-xml \
+  php7.4-intl \
+  # php7.4-mcrypt \
+  php7.4-mbstring \
   composer
 
 # avoid million NPM install messages
