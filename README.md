@@ -2,6 +2,20 @@
 
 ## Changelog
 
+### 21.10.2020
+ node version:    v14.14.0
+ php version:     PHP 7.4.11 (cli) (built: Oct 18 2020 19:44:48) ( NTS )
+  Copyright (c) The PHP Group
+  Zend Engine v3.4.0, Copyright (c) Zend Technologies
+  with Zend OPcache v7.4.11, Copyright (c), by Zend Technologies
+ npm version:     6.14.8
+ git version:     git version 2.20.1
+ yarn version:    1.22.10
+ debian version:  10.6
+ user:            root
+ docker:          Docker version 19.03.13, build 4484c46d9d
+ docker-compose:  docker-compose version 1.27.4, build 40524192
+
 ### 19.08.2020 -
 
 #### `crollalowis/cl-gitlab-runner:php74-node14`
