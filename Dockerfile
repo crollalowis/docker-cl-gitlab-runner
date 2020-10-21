@@ -5,6 +5,7 @@ USER root
 LABEL maintainer="r.hoffmann@crolla-lowis.de"
 
 COPY .bashrc /root/.bashrc
+
 ENV TERM=xterm
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -19,6 +20,8 @@ RUN apt-get install -y \
   lsb-release \
   software-properties-common \
   # language-pack-en-base \
+  zsh \
+  bash \
   imagemagick \
   rsync \
   openssh-client \
@@ -44,7 +47,7 @@ RUN echo $(lsb_release -cs)
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 
 RUN apt-get update
-RUN apt-get install docker-ce docker-ce-cli -y
+RUN apt-get install docker-ce docker-ce-cli containerd.io -y
 
 RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
@@ -92,8 +95,13 @@ RUN npm install --unsafe --unsafe-perms -g node-sass npm yarn
 
 RUN rm -rf /var/lib/apt/lists/*
 
+WORKDIR '/root'
+RUN usermod -aG docker root
+COPY ./start.sh start.sh
+
 # versions of local tools
-RUN echo  " node version:    $(node -v) \n" \
+RUN echo \
+  "node version:    $(node -v) \n" \
   "php version:     $(php -v) \n" \
   "npm version:     $(npm -v) \n" \
   "git version:     $(git --version) \n" \
@@ -101,6 +109,7 @@ RUN echo  " node version:    $(node -v) \n" \
   "debian version:  $(cat /etc/debian_version) \n" \
   "user:            $(whoami) \n"\
   "docker:          $(docker -v)\n"\
-  "docker-compose:  $(docker-compose -v)\n"
+  "docker-compose:  $(docker-compose -v)\n"\
+  "DOCKER_HOST:     $(env | grep DOCKER_HOST)\n"
 
-CMD ["bash"]
+CMD ["sh", "start.sh"]
