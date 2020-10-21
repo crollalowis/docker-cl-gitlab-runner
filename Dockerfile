@@ -1,8 +1,8 @@
-FROM debian:stretch
+FROM debian:buster
 
 USER root
 
-ARG FIREFOX_VERSION=79.0
+# ARG FIREFOX_VERSION=79.0
 
 LABEL maintainer="r.hoffmann@crolla-lowis.de"
 
@@ -26,6 +26,7 @@ RUN apt-get install -y \
   openssh-client \
   curl \
   wget \
+  gnupg-agent \
   libmcrypt-dev \
   libreadline-dev \
   libicu-dev \
@@ -35,35 +36,54 @@ RUN apt-get install -y \
   ftp \
   ftp-upload
 
-RUN \
-  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-  echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+# Install docker
+
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+RUN apt-key fingerprint 0EBFCD88
+
+RUN echo $(lsb_release -cs)
+
+RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+
 RUN apt-get update
-RUN apt-get install -y google-chrome-stable
+RUN apt-get install docker-ce docker-ce-cli -y
+
+RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+RUN chmod +x /usr/local/bin/docker-compose
+RUN ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+
+# RUN \
+#   wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+#   echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+# RUN apt-get update
+# RUN apt-get install -y google-chrome-stable
 
 # "fake" dbus address to prevent errors
 # https://github.com/SeleniumHQ/docker-selenium/issues/87
-ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
+# ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 
-RUN wget --no-verbose -O /tmp/firefox.tar.bz2 https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2 \
-  && tar -C /opt -xjf /tmp/firefox.tar.bz2 \
-  && rm /tmp/firefox.tar.bz2 \
-  && ln -fs /opt/firefox/firefox /usr/bin/firefox
+# RUN wget --no-verbose -O /tmp/firefox.tar.bz2 https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2 \
+#   && tar -C /opt -xjf /tmp/firefox.tar.bz2 \
+#   && rm /tmp/firefox.tar.bz2 \
+#   && ln -fs /opt/firefox/firefox /usr/bin/firefox
 
 # install cypress deps
 
-RUN apt-get update && \
-  apt-get install --no-install-recommends -y \
-  libgtk2.0-0 \
-  libgtk-3-0 \
-  libnotify-dev \
-  libgconf-2-4 \
-  libnss3 \
-  libxss1 \
-  libasound2 \
-  libxtst6 \
-  xauth \
-  xvfb
+# RUN apt-get update && \
+#   apt-get install --no-install-recommends -y \
+#   libgtk2.0-0 \
+#   libgtk-3-0 \
+#   libnotify-dev \
+#   libgconf-2-4 \
+#   libnss3 \
+#   libxss1 \
+#   libasound2 \
+#   libxtst6 \
+#   xauth \
+#   xvfb
+
 
 
 # instll latest nodejs
@@ -105,7 +125,6 @@ ENV npm_config_unsafe_perm true
 
 RUN npm install --unsafe --unsafe-perms -g node-sass npm yarn
 
-
 RUN rm -rf /var/lib/apt/lists/*
 
 
@@ -115,9 +134,11 @@ RUN echo  " node version:    $(node -v) \n" \
   "npm version:     $(npm -v) \n" \
   "git version:     $(git --version) \n" \
   "yarn version:    $(yarn -v) \n" \
-  "chrome version:  $(google-chrome --version) \n" \
-  "firefox version: $(firefox --version) \n" \
+  # "chrome version:  $(google-chrome --version) \n" \
+  # "firefox version: $(firefox --version) \n" \
   "debian version:  $(cat /etc/debian_version) \n" \
-  "user:            $(whoami) \n"
+  "user:            $(whoami) \n"\
+  "docker:          $(docker -v)\n"\
+  "docker-compose:  $(docker-compose -v)\n"
 
 CMD ["bash"]
