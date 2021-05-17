@@ -49,7 +49,7 @@ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debia
 RUN apt-get update
 RUN apt-get install docker-ce docker-ce-cli containerd.io -y
 
-RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 RUN chmod +x /usr/local/bin/docker-compose
 RUN ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
@@ -68,12 +68,11 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc
 RUN apt-cache search php7.4
 
 # yq
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CC86BB64
-RUN add-apt-repository ppa:rmescandon/yq
+RUN wget https://github.com/mikefarah/yq/releases/download/v4.9.1/yq_linux_amd64 -O /usr/bin/yq &&\
+    chmod +x /usr/bin/yq
 
 RUN apt-get update && \
   apt-get install -y \
-  yq \
   php7.4 \
   php7.4-cli \
   php7.4-imagick \
