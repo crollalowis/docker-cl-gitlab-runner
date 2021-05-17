@@ -36,7 +36,7 @@ RUN apt-get install -y \
   zip \
   ftp \
   ftp-upload \
-  ncftpput
+  ncftp
 
 # Install docker
 
