@@ -69,6 +69,7 @@ RUN apt-cache search php7.4
 
 RUN apt-get update && \
   apt-get install -y \
+  yq \
   php7.4 \
   php7.4-cli \
   php7.4-imagick \
