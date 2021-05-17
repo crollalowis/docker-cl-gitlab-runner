@@ -67,6 +67,10 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc
 
 RUN apt-cache search php7.4
 
+# yq
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CC86BB64
+RUN add-apt-repository ppa:rmescandon/yq
+
 RUN apt-get update && \
   apt-get install -y \
   yq \
