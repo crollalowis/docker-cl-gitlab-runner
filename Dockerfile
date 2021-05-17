@@ -35,7 +35,8 @@ RUN apt-get install -y \
   libssl-dev \
   zip \
   ftp \
-  ftp-upload
+  ftp-upload \
+  ncftpput
 
 # Install docker
 
