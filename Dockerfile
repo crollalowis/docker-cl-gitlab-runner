@@ -82,6 +82,7 @@ RUN apt-get update && \
   php7.4-json \
   php7.4-xml \
   php7.4-intl \
+  php7.4-bcmath \
   # php7.4-mcrypt \
   php7.4-mbstring \
   composer
